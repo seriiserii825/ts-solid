@@ -1,3 +1,5 @@
+import calculator from "./practice/calculator";
 import game from "./practice/game";
 
-game()
+calculator()
+// game()
