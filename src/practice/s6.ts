@@ -1,110 +1,69 @@
+// class UserController {
+//   async handleRegisterRequest(req: any, res: any) {
+//     // валидация
+//     if (!req.body.email || !req.body.password) {
+//       res.status(400).send("Missing fields");
+//       return;
+//     }
+//
+//     // бизнес-логика
+//     const user = {
+//       id: Date.now(),
+//       email: req.body.email,
+//       password: "hashed-" + req.body.password,
+//     };
+//
+//     // сохранение
+//     console.log("Saving user to DB:", user);
+//
+//     // ответ
+//     res.status(201).json(user);
+//   }
+// }
+
 class UserController {
+  private validator: UserValidator;
+  private service: UserService;
+  private responseHandler: HttpResponseHandler;
+
+  constructor() {
+    this.validator = new UserValidator();
+    this.service = new UserService();
+    this.responseHandler = new HttpResponseHandler();
+  }
+
   async handleRegisterRequest(req: any, res: any) {
-    // валидация
-    if (!req.body.email || !req.body.password) {
-      res.status(400).send("Missing fields");
-      return;
+    try {
+      this.validator.validateUserData(req.body);
+      const user = this.service.createUser(req.body);
+      this.responseHandler.sendResponse(res, 201, user);
+    } catch (error) {
+      this.responseHandler.sendResponse(res, 400, { error: error.message });
     }
+  }
+}
 
-    // бизнес-логика
-    const user = {
+class UserValidator {
+  validateUserData(data: any) {
+    if (!data.email || !data.password) {
+      throw new Error("Missing fields");
+    }
+  }
+}
+class UserService {
+  createUser(data: any) {
+    return {
       id: Date.now(),
-      email: req.body.email,
-      password: "hashed-" + req.body.password,
+      email: data.email,
+      password: "hashed-" + data.password,
     };
-
-    // сохранение
-    console.log("Saving user to DB:", user);
-
-    // ответ
-    res.status(201).json(user);
+  }
+}
+class HttpResponseHandler {
+  sendResponse(res: any, status: number, data: any) {
+    res.status(status).json(data);
   }
 }
 // Твоя задача:
 // Опиши, на какие отдельные классы/слои это стоит разбить, и за что каждый будет отвечать (валидация, бизнес-логика, сохранение, HTTP-ответ и т.п.).
 
-// 🧩 Задача 7 — Класс, который и парсит, и пишет файл
-// ts
-// Копировать код
-// class ConfigManager {
-//   loadConfig(path: string) {
-//     const file = Deno.readTextFileSync(path);
-//     return JSON.parse(file);
-//   }
-//
-//   saveConfig(path: string, data: any) {
-//     const json = JSON.stringify(data, null, 2);
-//     Deno.writeTextFileSync(path, json);
-//   }
-//
-//   getDatabaseUrl(config: any) {
-//     return `${config.db.host}:${config.db.port}`;
-//   }
-// }
-// Твоя задача:
-// Найди здесь разные ответственности и предложи, какие классы/модули можно выделить (например, работа с файлами, парсинг/форматирование, доменная логика).
-//
-// 🧩 Задача 8 — Логгер, который всё делает сам
-// ts
-// Копировать код
-// class Logger {
-//   private logs: string[] = [];
-//
-//   log(message: string) {
-//     const full = `[${new Date().toISOString()}] ${message}`;
-//     this.logs.push(full);
-//     console.log(full);
-//     Deno.writeTextFileSync("app.log", this.logs.join("\n"));
-//   }
-// }
-// Твоя задача:
-// Опиши, какие здесь разные обязанности (форматирование, хранение, вывод, запись в файл) и как бы ты разделил это на несколько классов/компонентов по SRP.
-//
-// 🧩 Задача 9 — Класс, который знает и про UI, и про данные
-// ts
-// Копировать код
-// class TodoManager {
-//   private todos: string[] = [];
-//
-//   addTodo(text: string) {
-//     this.todos.push(text);
-//     localStorage.setItem("todos", JSON.stringify(this.todos));
-//     const li = document.createElement("li");
-//     li.textContent = text;
-//     document.querySelector("#todo-list")?.appendChild(li);
-//   }
-// }
-// Твоя задача:
-// Предложи, как разделить:
-//
-// работу с данными/хранилищем,
-//
-// работу с DOM/UI,
-// чтобы каждый класс имел одну ответственность. Просто опиши структуру.
-//
-// 🧩 Задача 10 — Отчёт: генерация, рендер, экспорт
-// ts
-// Копировать код
-// class SalesReport {
-//   buildData(from: Date, to: Date) {
-//     // достаём продажи, агрегируем
-//   }
-//
-//   toHtml() {
-//     // строим html-разметку
-//   }
-//
-//   toCsv() {
-//     // строим csv
-//   }
-//
-//   download(filename: string) {
-//     // инициируем скачивание файла в браузере
-//   }
-// }
-// Твоя задача:
-// Укажи:
-//
-// Какие тут разные зоны ответственности?
-//
-// На какие 2–3 класса/сервиса ты бы это разбил, и кто за что отвечал бы?
