@@ -49,9 +49,13 @@ class Sale20Strategy implements PromoStrategy {
     return product.price * 0.8; // скидка 20%
   }
 }
+
+const strategies = ['SALE10', 'SALE20'] as const;
+type PromoCodes = typeof strategies[number];
+
 class PromoServiceOCP {
-  private strategies: { [code: string]: PromoStrategy } = {};
-  private codes: string[] = ["SALE10", "SALE20"];
+  private strategies: { [code : string]: PromoStrategy } = {};
+  private codes: PromoCodes[] = ["SALE10", "SALE20"];
 
   constructor() {
     this.strategies[this.codes[0]] = new Sale10Strategy();
