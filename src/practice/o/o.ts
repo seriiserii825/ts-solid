@@ -1,35 +1,3 @@
-
-// =============================
-// Задача 2 — OrderProcessor (разные типы заказов)
-// -----------------------------
-// Есть обработчик заказов, который сейчас поддерживает только
-// "physical" и "digital" через if.
-// ЗАДАЧА: реализовать архитектуру, в которой можно легко
-// добавлять новые типы заказов: "subscription", "preorder", "service",
-// НЕ изменяя OrderProcessor (по OCP).
-
-type Order = {
-  id: number;
-  type: "physical" | "digital";
-  userId: number;
-};
-
-class OrderProcessor {
-  process(order: Order) {
-    if (order.type === "physical") {
-      console.log("Создать накладную на доставку");
-    }
-
-    if (order.type === "digital") {
-      console.log("Открыть доступ к скачиванию");
-    }
-  }
-}
-
-const orderProcessor = new OrderProcessor();
-orderProcessor.process({ id: 1, type: "physical", userId: 3 });
-
-
 // =============================
 // Задача 3 — DocumentGenerator (разные типы документов)
 // -----------------------------
