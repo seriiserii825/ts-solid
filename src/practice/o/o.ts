@@ -1,31 +1,4 @@
 // =============================
-// Задача 3 — DocumentGenerator (разные типы документов)
-// -----------------------------
-// Сейчас генерируется только один тип документа — invoice.
-// ЗАДАЧА: спроектировать решение, где можно добавлять новые типы
-// документов: "contract", "offer", "serviceAct" и т.п.
-// при этом НЕ менять существующий код DocumentGenerator.
-// Подумать про общий интерфейс "документа" или "рендерера документа".
-
-type InvoiceData = {
-  invoiceNumber: string;
-  total: number;
-};
-
-class DocumentGenerator {
-  generate(type: "invoice", data: InvoiceData): string {
-    if (type === "invoice") {
-      return `Invoice #${data.invoiceNumber}, total: ${data.total}`;
-    }
-    return "";
-  }
-}
-
-const docGen = new DocumentGenerator();
-docGen.generate("invoice", { invoiceNumber: "A-1", total: 500 });
-
-
-// =============================
 // Задача 4 — WebhookHandler (разные провайдеры и события)
 // -----------------------------
 // Сейчас есть обработчик вебхуков только для Stripe и только для
