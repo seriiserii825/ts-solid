@@ -1,36 +1,4 @@
 // =============================
-// Задача 4 — WebhookHandler (разные провайдеры и события)
-// -----------------------------
-// Сейчас есть обработчик вебхуков только для Stripe и только для
-// двух типов событий. Всё зашито в if.
-// ЗАДАЧА: построить архитектуру, где можно:
-//   - добавлять новых провайдеров (PayPal, YooKassa, Coinbase и т.п.)
-//   - добавлять новые типы событий (refund, subscription_canceled и т.д.)
-// при этом НЕ менять WebhookHandler при добавлении нового провайдера/типа.
-
-type StripeEvent = {
-  provider: "stripe";
-  type: "payment_succeeded" | "payment_failed";
-};
-
-class WebhookHandler {
-  handle(event: StripeEvent) {
-    if (event.provider === "stripe") {
-      if (event.type === "payment_succeeded") {
-        console.log("Stripe payment succeeded");
-      }
-      if (event.type === "payment_failed") {
-        console.log("Stripe payment failed");
-      }
-    }
-  }
-}
-
-const wh = new WebhookHandler();
-wh.handle({ provider: "stripe", type: "payment_succeeded" });
-
-
-// =============================
 // Задача 5 — Server + Middleware (расширяемая цепочка промежуточной логики)
 // -----------------------------
 // В сервере захардкожены шаги:
