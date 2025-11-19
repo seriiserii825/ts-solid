@@ -1,22 +1,4 @@
 // ---------------------------------------------
-// Задача 1 — Создание пользователей
-// ❌ Плохой код:
-function createUser(type: string) {
-  if (type === "admin") {
-    return { role: "admin", permissions: ["read", "write", "delete"] };
-  }
-  if (type === "editor") {
-    return { role: "editor", permissions: ["read", "write"] };
-  }
-  if (type === "viewer") {
-    return { role: "viewer", permissions: ["read"] };
-  }
-}
-// 🎯 Задача: Сделать UserFactory, убрать if
-
-
-
-// ---------------------------------------------
 // Задача 2 — Генерация кнопок
 // ❌ Плохой код:
 function generateButton(type: string) {
