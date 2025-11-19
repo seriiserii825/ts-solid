@@ -1,16 +1,4 @@
 // ---------------------------------------------
-// Задача 3 — Логгер
-// ❌ Плохой код:
-function getLogger(env: string) {
-  if (env === "dev") return new ConsoleLogger();
-  if (env === "prod") return new FileLogger();
-  if (env === "test") return new DummyLogger();
-}
-// 🎯 Задача: Создать LoggerFactory
-
-
-
-// ---------------------------------------------
 // Задача 4 — Оплата
 // ❌ Плохой код:
 function pay(method: string) {
