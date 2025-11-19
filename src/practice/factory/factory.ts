@@ -1,16 +1,4 @@
 // ---------------------------------------------
-// Задача 2 — Генерация кнопок
-// ❌ Плохой код:
-function generateButton(type: string) {
-  if (type === "primary") return new PrimaryButton();
-  if (type === "secondary") return new SecondaryButton();
-  if (type === "danger") return new DangerButton();
-}
-// 🎯 Задача: Создать ButtonFactory
-
-
-
-// ---------------------------------------------
 // Задача 3 — Логгер
 // ❌ Плохой код:
 function getLogger(env: string) {
