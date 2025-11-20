@@ -1,37 +1,4 @@
 // =========================
-// Задача 4 — Пользователь из разных API
-// -------------------------
-// Твой код ожидает единый интерфейс пользователя:
-interface IUser {
-  id: number;
-  fullName: string;
-  email: string;
-}
-
-// А у тебя 2 разных источника:
-// 1) API A:
-type ApiAUser = {
-  id: number;
-  name: string;
-  mail: string;
-};
-
-// 2) API B:
-type ApiBUser = {
-  userId: number;
-  first_name: string;
-  last_name: string;
-  email_address: string;
-};
-
-// ❗ ЗАДАЧА:
-// Сделать два адаптера:
-// - ApiAUser → IUser
-// - ApiBUser → IUser
-// чтобы остальной код всегда работал только с IUser.
-
-
-// =========================
 // Задача 5 — Хранилище файлов
 // -------------------------
 // Есть интерфейс абстрактного хранилища:
