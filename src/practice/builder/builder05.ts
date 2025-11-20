@@ -1,69 +1,78 @@
-// ✅ Задание: Реализовать FormBuilder с fluent-методами
-// Представь, что ты создаёшь конфиг формы (например, для React, Vue или любого фронта).
-// Нужно реализовать FormBuilder, который позволяет пошагово собирать форму через fluent-методы.
-//
-// 🎯 Сущности, которые должны быть
-// Тип поля формы
-// Поле имеет свойства:
-//
-// name — строка
-//
-// label — строка
-//
-// type — одно из четырёх значений: text, email, password, checkbox
-//
-// required — булево значение
-//
-// placeholder — (необязательное) строка
-//
-// defaultValue — (необязательное) строка или булево значение
-//
-// Конфиг формы
-// Форма состоит из:
-//
-// formName — строка (название формы)
-//
-// fields — массив объектов полей формы
-//
-// 📌 Что должен уметь FormBuilder
-// Реализуй класс FormBuilder со следующими методами:
-//
-// Fluent-методы:
-// setFormName(name)
-// Устанавливает название формы.
-//
-// addField(name, label, type)
-// Добавляет новое поле в форму.
-// У нового поля:
-//
-// required по умолчанию должно быть false
-//
-// placeholder и defaultValue отсутствуют
-//
-// makeRequired(fieldName)
-// Делает указанное поле обязательным (required = true).
-//
-// setPlaceholder(fieldName, placeholder)
-// Устанавливает placeholder у указанного поля.
-//
-// setDefaultValue(fieldName, value)
-// Устанавливает defaultValue у указанного поля.
-//
-// Финальный метод:
-// build()
-// Возвращает итоговый конфиг формы, состоящий из:
-//
-// formName
-//
-// массива всех полей
-//
-// Все методы (кроме build) должны работать по fluent-принципу — то есть возвращать this, чтобы можно было вызывать их цепочкой.
-//
-// ✔️ Пример использования, который должен работать (не код, а логика)
-// — Создаёшь новый FormBuilder
-// — Задаёшь название формы
-// — Добавляешь поля email и password
-// — Делаешь оба обязательными
-// — У email задаёшь placeholder
-// — Вызываешь build
-// — Получаешь конфиг формы с двумя полями, установленными значениями и названием формы
+export default function cardBuilder() {
+  interface IButton {
+    label: string;
+    url: string;
+  }
+  interface ICard {
+    title: string;
+    description: string;
+    imageUrl: string;
+    badge?: string;
+    actions: IButton[];
+    theme: "dark" | "light";
+  }
+  interface ICardBuilder {
+    setTitle(text: string): this;
+    setDescription(text: string): this;
+    setImage(url: string): this;
+    setBadge(text: string): this;
+    addAction(label: string, url: string): this;
+    setTheme(theme: string): this;
+    build(): ICard;
+  }
+  class CardBuilder implements ICardBuilder {
+    private title: string = "";
+    private description: string = "";
+    private imageUrl: string = "";
+    private badge?: string = "";
+    private actions: IButton[] = [];
+    private theme: "dark" | "light" = "light";
+    setTitle(text: string): this {
+      this.title = text;
+      return this;
+    }
+    setDescription(text: string): this {
+      this.description = text;
+      return this;
+    }
+    setImage(url: string): this {
+      this.imageUrl = url;
+      return this;
+    }
+    setBadge(text: string): this {
+      this.badge = text;
+      return this;
+    }
+    addAction(label: string, url: string): this {
+      this.actions.push({ label, url });
+      return this;
+    }
+    setTheme(theme: string): this {
+      if (theme === "dark" || theme === "light") {
+        this.theme = theme;
+      }
+      return this;
+    }
+    build(): ICard {
+      return {
+        title: this.title,
+        description: this.description,
+        imageUrl: this.imageUrl,
+        badge: this.badge,
+        actions: this.actions,
+        theme: this.theme,
+      };
+    }
+  }
+  const card_builder = new CardBuilder();
+  const card = card_builder
+    .setTitle("Amazing Product")
+    .setDescription("This product will change your life!")
+    .setImage("https://example.com/image.jpg")
+    .setBadge("Sale")
+    .addAction("Buy now", "https://example.com/buy")
+    .addAction("More info", "https://example.com/info")
+    .setTheme("dark")
+    .build();
+  console.log(card);
+}
