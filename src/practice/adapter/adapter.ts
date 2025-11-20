@@ -1,33 +1,4 @@
 // =========================
-// Задача 5 — Хранилище файлов
-// -------------------------
-// Есть интерфейс абстрактного хранилища:
-interface FileStorage {
-  save(path: string, content: string): void;
-  read(path: string): string;
-}
-
-// И 2 реализации, которые менять нельзя:
-// 1) Локальная ФС:
-class LocalFs {
-  writeFile(filePath: string, data: string) {/*...*/}
-  readFile(filePath: string): string { return ""; }
-}
-
-// 2) Облачное хранилище:
-class CloudStorageSDK {
-  upload(key: string, body: string) {/*...*/}
-  download(key: string): string { return ""; }
-}
-
-// ❗ ЗАДАЧА:
-// Написать два адаптера:
-// - LocalFs → FileStorage
-// - CloudStorageSDK → FileStorage
-// чтобы в клиентском коде можно было легко подменять реализацию.
-
-
-// =========================
 // Задача 6 — UI-Компонент кнопки
 // -------------------------
 // Твой дизайн-системный компонент ожидает интерфейс:
