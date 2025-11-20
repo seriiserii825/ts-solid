@@ -1,29 +1,4 @@
 // =========================
-// Задача 9 — Видео-плеер
-// -------------------------
-// Новый интерфейс видеоплеера:
-interface VideoPlayer {
-  play(url: string): void;
-}
-
-// Старый HTML5 плеер:
-class Html5Player {
-  playFile(fileUrl: string) {/*...*/}
-}
-
-// Сторонняя библиотека:
-class ThirdPartyPlayer {
-  startStreaming(streamUrl: string) {/*...*/}
-}
-
-// ❗ ЗАДАЧА:
-// Сделать два адаптера:
-// - Html5Player → VideoPlayer
-// - ThirdPartyPlayer → VideoPlayer
-// и показать, как клиентский код работает только через VideoPlayer.
-
-
-// =========================
 // Задача 10 — Конвертер единиц измерения
 // -------------------------
 // Клиент ожидает интерфейс:
@@ -38,12 +13,18 @@ class MetersSource {
     return 1000;
   }
 }
+interface IMetersSource {
+  getMeters(): number;
+}
 
 // 2) Источник B: возвращает мили
 class MilesSource {
   getMiles(): number {
     return 1;
   }
+}
+interface MilesSource {
+  getMiles(): number;
 }
 
 // ❗ ЗАДАЧА:
@@ -52,3 +33,35 @@ class MilesSource {
 // - MilesSource → DistanceProvider
 // с корректным пересчётом в километры.
 // =========================
+
+class MetersSourceAdapter implements DistanceProvider {
+  private metersSource: IMetersSource;
+
+  constructor(metersSource: IMetersSource) {
+    this.metersSource = metersSource;
+  }
+
+  getDistanceInKm(): number {
+    return this.metersSource.getMeters() / 1000;
+  }
+}
+
+class MilesSourceAdapter implements DistanceProvider {
+  private milesSource: MilesSource;
+
+  constructor(milesSource: MilesSource) {
+    this.milesSource = milesSource;
+  }
+
+  getDistanceInKm(): number {
+    return this.milesSource.getMiles() * 1.60934;
+  }
+}
+
+const metersSource: IMetersSource = new MetersSource();
+const metersAdapter: DistanceProvider = new MetersSourceAdapter(metersSource);
+console.log(`Distance in km (from meters): ${metersAdapter.getDistanceInKm()}`);
+const milesSource: MilesSource = new MilesSource();
+const milesAdapter: DistanceProvider = new MilesSourceAdapter(milesSource);
+console.log(`Distance in km (from miles): ${milesAdapter.getDistanceInKm()}`);
+
