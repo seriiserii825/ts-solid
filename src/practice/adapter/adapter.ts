@@ -1,34 +1,4 @@
 // =========================
-// Задача 7 — База данных
-// -------------------------
-// Есть абстрактный интерфейс репозитория:
-interface IUserRepository {
-  findById(id: number): Promise<{ id: number; name: string } | null>;
-}
-
-// И есть два "сырых" клиента:
-// 1) MySQLClient:
-class MySQLClient {
-  query(sql: string): Promise<any[]> {
-    return Promise.resolve([]);
-  }
-}
-
-// 2) MongoClient:
-class MongoClient {
-  findOne(collection: string, filter: object): Promise<any | null> {
-    return Promise.resolve(null);
-  }
-}
-
-// ❗ ЗАДАЧА:
-// Сделать два адаптера:
-// - MySQLClient → IUserRepository
-// - MongoClient → IUserRepository
-// чтобы сервисы работали только с IUserRepository.
-
-
-// =========================
 // Задача 8 — Нотификации
 // -------------------------
 // Унифицированный интерфейс уведомлений:
