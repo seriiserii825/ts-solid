@@ -1,53 +1,4 @@
 // ===============================
-// 4) Фронтенд компоненты
-// -------------------------------
-// Абстракция: UIComponent (render())
-// Реализация: LightTheme, DarkTheme
-// ЗАДАЧА: Сделать Button, Card, Input — но применяемую тему вынести в реализацию.
-
-
-// ===============================
-// 5) Контент-рендеринг
-// -------------------------------
-// Абстракция: Article (show())
-// Реализация: HtmlRenderer, PdfRenderer, MarkdownRenderer
-// ЗАДАЧА: Одна и та же статья должна рендериться в разные форматы.
-
-
-// ===============================
-// 6) Видео-плеер
-// -------------------------------
-// Абстракция: Video
-// Реализация: LocalSource, HttpStreamingSource, TorrentSource
-// ЗАДАЧА: Любой Video класс (Movie, Clip, Trailer) должен проигрываться из любого Source.
-
-
-// ===============================
-// 7) Контроллеры в приложении
-// -------------------------------
-// Абстракция: UserController, ProductController
-// Реализация: MemoryDB, MySQLDriver, PostgresDriver
-// ЗАДАЧА: Контроллеры должны работать с любой базой без изменения кода контроллера.
-
-
-// ===============================
-// 8) Система скидок
-// -------------------------------
-// Абстракция: Discount (apply())
-// Реализация: PercentageCalculator, FixedCalculator
-// ЗАДАЧА: Один тип скидки может считать по разным формулам.
-// (Например, Скидка “Черная пятница” может быть процентной или фиксированной)
-
-
-// ===============================
-// 9) Отчёты аналитики
-// -------------------------------
-// Абстракция: Report (generate())
-// Реализация: JsonExporter, CsvExporter, XmlExporter
-// ЗАДАЧА: Один и тот же отчёт должен экспортироваться в разные форматы.
-
-
-// ===============================
 // 10) Игровые юниты
 // -------------------------------
 // Абстракция: Unit (attack())
@@ -55,3 +6,56 @@
 // ЗАДАЧА: Разные юниты (Warrior, Archer, Wizard) должны использовать разные Weapon-реализации
 // без изменения базового кода юнита.
 
+interface Weapon {
+    attack(): string;
+}
+
+class SwordWeapon implements Weapon {
+    attack(): string {
+        return "Attacks with a sword!";
+    }
+}
+class BowWeapon implements Weapon {
+    attack(): string {
+        return "Attacks with a bow!";
+    }
+}
+class MagicWeapon implements Weapon {
+    attack(): string {
+        return "Casts a magic spell!";
+    }
+}
+abstract class Unit {
+    protected weapon: Weapon;
+
+    constructor(weapon: Weapon) {
+        this.weapon = weapon;
+    }
+
+    abstract attack(): string;
+}
+class Warrior extends Unit {
+    attack(): string {
+        return `Warrior: ${this.weapon.attack()}`;
+    }
+}
+class Archer extends Unit {
+    attack(): string {
+        return `Archer: ${this.weapon.attack()}`;
+    }
+}
+class Wizard extends Unit {
+    attack(): string {
+        return `Wizard: ${this.weapon.attack()}`;
+    }
+}
+// Клиентский код
+const sword = new SwordWeapon();
+const bow = new BowWeapon();
+const magic = new MagicWeapon();
+const warrior = new Warrior(sword);
+const archer = new Archer(bow);
+const wizard = new Wizard(magic);
+console.log(warrior.attack()); // Warrior: Attacks with a sword!
+console.log(archer.attack());  // Archer: Attacks with a bow!
+console.log(wizard.attack());  // Wizard: Casts a magic spell!
