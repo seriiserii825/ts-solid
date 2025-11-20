@@ -1,28 +1,4 @@
 // =========================
-// Задача 8 — Нотификации
-// -------------------------
-// Унифицированный интерфейс уведомлений:
-interface Notifier {
-  send(to: string, message: string): void;
-}
-
-// А есть два разных провайдера:
-// 1) EmailService:
-class EmailService {
-  sendEmail(recipient: string, body: string) {/*...*/}
-}
-
-// 2) SmsService:
-class SmsService {
-  sendSms(phone: string, text: string) {/*...*/}
-}
-
-// ❗ ЗАДАЧА:
-// Сделать адаптеры EmailService и SmsService под Notifier,
-// чтобы можно было в зависимости от настроек подменять реализацию.
-
-
-// =========================
 // Задача 9 — Видео-плеер
 // -------------------------
 // Новый интерфейс видеоплеера:
