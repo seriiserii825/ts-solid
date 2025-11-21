@@ -1,5 +1,5 @@
 // =====================================
-// Задача 2 — Корзина и наборы товаров
+// Задача 4 — Корзина и наборы товаров
 // -------------------------------------
 // Цель: один и тот же интерфейс для простого товара и набора.
 
@@ -13,7 +13,7 @@ interface IBundleItem extends ICartItem {
   remove(item: ICartItem): void;
 }
 
-// TODO-2.1: Реализуй класс ProductItem (лист)
+// TODO-4.1: Реализуй класс ProductItem (лист)
 // - поля: name: string, unitPrice: number, quantity: number
 // - getName() → name
 // - getTotalPrice() → unitPrice * quantity
@@ -31,7 +31,7 @@ class ProductItem implements ICartItem {
   }
 }
 
-// TODO-2.2: Реализуй класс BundleItem (composite)
+// TODO-4.2: Реализуй класс BundleItem (composite)
 // - поля: name: string, items: CartItem[]
 // - add(item: CartItem)
 // - remove(item: CartItem)
@@ -69,7 +69,7 @@ function demoCart() {
 
   const total = items.reduce((acc, curr) => acc + curr.getTotalPrice(), 0);
   console.log("total", total);
-  // TODO-2.3: собери корзину:
+  // TODO-4.3: собери корзину:
   // - продукт: "Mouse", 20€, qty 1
   // - продукт: "Keyboard", 50€, qty 1
   // - набор "Office pack":

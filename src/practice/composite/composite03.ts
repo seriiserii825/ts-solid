@@ -6,7 +6,7 @@
 // и решить задачи по очереди, закомментировав остальные.
 
 // =====================================
-// Задача 1 — Файловая система (File / Directory)
+// Задача 3 — Файловая система (File / Directory)
 // -------------------------------------
 // Цель: попрактиковаться в простом дереве: лист + папка.
 
@@ -16,7 +16,7 @@ interface IFileSystemItem {
   print(indent?: number): void;
 }
 
-// TODO-1.1: Реализуй класс File (лист)
+// TODO3-.1: Реализуй класс File (лист)
 // - хранит name: string и size: number (в байтах)
 // - getName() → name
 // - getSize() → size
@@ -44,7 +44,7 @@ class FileItem implements IFileSystemItem {
   }
 }
 
-// TODO-1.2: Реализуй класс Directory (composite)
+// TODO3-.2: Реализуй класс Directory (composite)
 // - хранит name: string и children: FileSystemItem[]
 // - add(item: FileSystemItem)
 // - remove(item: FileSystemItem)
@@ -102,7 +102,7 @@ function demoFileSystem() {
   root.print()
   const root_size = root.getSize()
   console.log("root_size", root_size);
-  // TODO-1.3: собери структуру:
+  // TODO3-.3: собери структуру:
   // root
   //   - index.html (100)
   //   - styles
