@@ -1,47 +1,4 @@
 // =====================================
-// Задача 2 — Корзина и наборы товаров
-// -------------------------------------
-// Цель: один и тот же интерфейс для простого товара и набора.
-
-interface CartItem {
-  getName(): string;
-  getTotalPrice(): number;
-}
-
-// TODO-2.1: Реализуй класс ProductItem (лист)
-// - поля: name: string, unitPrice: number, quantity: number
-// - getName() → name
-// - getTotalPrice() → unitPrice * quantity
-class ProductItem {
-  // ...
-}
-
-// TODO-2.2: Реализуй класс BundleItem (composite)
-// - поля: name: string, items: CartItem[]
-// - add(item: CartItem)
-// - remove(item: CartItem)
-// - getName() → name
-// - getTotalPrice() → сумма getTotalPrice() всех items
-class BundleItem {
-  // ...
-}
-
-function demoCart() {
-  // TODO-2.3: собери корзину:
-  // - продукт: "Mouse", 20€, qty 1
-  // - продукт: "Keyboard", 50€, qty 1
-  // - набор "Office pack":
-  //     - "Notebook", 5€, qty 3
-  //     - "Pen", 2€, qty 5
-  //
-  // Посчитай общую сумму:
-  // const items: CartItem[] = [...]
-  // const total = items.reduce(...)
-  // Выведи имена и цены каждого элемента (включая bundle)
-}
-// demoCart();
-
-// =====================================
 // Задача 3 — ToDo-список с подзадачами
 // -------------------------------------
 // Цель: Composite + состояние (completed).

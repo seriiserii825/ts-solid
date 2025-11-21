@@ -55,11 +55,10 @@ class FileItem implements IFileSystemItem {
 //    затем вызывает print(indent + 2) у всех детей
 class Directory implements IFileSystemItem {
   private name: string;
-  private children: IFileSystemItem[];
+  private children: IFileSystemItem[] = [];
 
-  constructor(name: string, children: IFileSystemItem[]) {
+  constructor(name: string) {
     this.name = name;
-    this.children = children;
   }
 
   add(item: IFileSystemItem) {
@@ -90,10 +89,16 @@ function demoFileSystem() {
   const index = new FileItem("index.html", 40);
   const main_css = new FileItem("main.css", 20);
   const reset_css = new FileItem("reset.css", 30);
-  const styles_dir = new Directory("styles", [main_css, reset_css]);
+  const styles_dir = new Directory("styles");
+  styles_dir.add(main_css)
+  styles_dir.add(reset_css)
   const app_js = new FileItem("app.js", 55);
-  const scripts_dir = new Directory("scripts", [app_js]);
-  const root = new Directory("root", [index, styles_dir, scripts_dir])
+  const scripts_dir = new Directory("scripts");
+  scripts_dir.add(app_js)
+  const root = new Directory("root")
+  root.add(index)
+  root.add(styles_dir)
+  root.add(scripts_dir)
   root.print()
   const root_size = root.getSize()
   console.log("root_size", root_size);
