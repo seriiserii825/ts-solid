@@ -55,27 +55,18 @@ class MegaOrderService {
     };
     // ======== "отправка email" ========
     const emailBody = `
-Hello!
-Your order ${order.id} has been processed.
-Total: ${total.toFixed(2)} €
-Thanks!
-`;
+    Hello!
+    Your order ${order.id} has been processed.
+    Total: ${total.toFixed(2)} €
+    Thanks!
+    `;
     console.log(`Sending email to ${order.customerEmail}:\n${emailBody}`);
     // ======== "генерация отчёта" ========
     console.log("=== SIMPLE REPORT ===");
     console.log("Total items:", order.items.length);
-    console.log(
-      "Books:",
-      order.items.filter((i) => i.type === "book").length
-    );
-    console.log(
-      "Courses:",
-      order.items.filter((i) => i.type === "course").length
-    );
-    console.log(
-      "Subscriptions:",
-      order.items.filter((i) => i.type === "subscription").length
-    );
+    console.log("Books:", order.items.filter((i) => i.type === "book").length);
+    console.log("Courses:", order.items.filter((i) => i.type === "course").length);
+    console.log("Subscriptions:", order.items.filter((i) => i.type === "subscription").length);
   }
   // ❌ Огромный интерфейс возможностей (ISP нарушен):
   //   сервис умеет ВСЁ, клиенты вынуждены зависеть от лишнего.
