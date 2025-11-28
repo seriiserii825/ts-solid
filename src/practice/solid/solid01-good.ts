@@ -232,12 +232,37 @@ class CheckoutService {
       total,
       processedAt: new Date().toISOString(),
     };
+<<<<<<< HEAD
     this.orderRepository.save(processedOrder);
     this.notifier.sendOrderConfirmation(processedOrder);
     this.logger.log(
       `Order ${order.id} processed successfully. Total = ${total.toFixed(2)}`
     );
     return processedOrder;
+=======
+    // ======== "отправка email" ========
+    const emailBody = `
+    Hello!
+    Your order ${order.id} has been processed.
+    Total: ${total.toFixed(2)} €
+    Thanks!
+    `;
+    console.log(`Sending email to ${order.customerEmail}:\n${emailBody}`);
+    // ======== "генерация отчёта" ========
+    console.log("=== SIMPLE REPORT ===");
+    console.log("Total items:", order.items.length);
+    console.log("Books:", order.items.filter((i) => i.type === "book").length);
+    console.log("Courses:", order.items.filter((i) => i.type === "course").length);
+    console.log("Subscriptions:", order.items.filter((i) => i.type === "subscription").length);
+  }
+  // ❌ Огромный интерфейс возможностей (ISP нарушен):
+  //   сервис умеет ВСЁ, клиенты вынуждены зависеть от лишнего.
+  exportAllDataToCsv(): void {
+    console.log("Exporting ALL data to CSV from internal db...", this.db);
+  }
+  rebuildDatabaseSchema(): void {
+    console.log("Dropping and recreating database schema... DANGEROUS");
+>>>>>>> a63a290867ee54e9e39c0e90897692bf03cdeb99
   }
 }
 // ---------- LSP: альтернативные реализации ----------
